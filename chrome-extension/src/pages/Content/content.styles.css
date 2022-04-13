@@ -1,0 +1,38 @@
+
+#chrome_websiteIP {
+	position: fixed;
+	bottom: 10px;
+	background: #000000;
+	padding: 5px;
+	border: 1px solid #000000;
+	border-radius: 10px;
+	border-bottom: 0px;
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+	font-family: 'Arial', Helvetica, sans-serif;
+	cursor: default;
+	z-index: 9999;
+	line-height: 1;
+	outline: 0;
+	vertical-align: baseline;
+	margin: 0;
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none; 
+	user-select: none;
+	background-position: right;
+  	background-repeat: no-repeat;
+  	background-size: contain;
+}
+
+.chrome_websiteIP_right {
+	right: 1%;
+}
+
+.chrome_websiteIP_left {
+	left: 1%;
+}
+
+/* hide if in print view */
+@media print {
+      #chrome_websiteIP {display:none;}
+}

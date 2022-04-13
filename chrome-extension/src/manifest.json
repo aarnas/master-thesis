@@ -1,0 +1,57 @@
+{
+  "name": "MBD",
+  "description": "DEVELOPMENT OF A WEB BROWSER EXTENSION INTEGRATED WITH EXTERNAL DATA SOURCES AND ARTIFICIAL INTELLIGENCE TO EVALUATE THE RELIABILITY OF WEB PAGES VISITED",
+  "options_page": "options.html",
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon-34.png"
+  },
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "all_frames": false,
+      "run_at": "document_end",
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.bundle.js"
+      ],
+      "css": [
+        "content.styles.css"
+      ]
+    },
+    {
+      "all_frames": false,
+      "run_at": "document_end",
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "jquery.ip.js",
+        "ip.js"
+      ]
+    }
+  ],
+  "devtools_page": "devtools.html",
+  "web_accessible_resources": [
+    "content.styles.css",
+    "icon-128.png",
+    "icon-34.png"
+  ],
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": [
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
+    "webRequest",
+    "storage",
+    "unlimitedStorage"
+  ]
+}
