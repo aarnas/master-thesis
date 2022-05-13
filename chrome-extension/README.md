@@ -1,7 +1,7 @@
 # MBD - Security Checks and AI evaluation of visited sites Chrome Extension 
 
 ## Features
-This boilerplate is updated with:
+Created with:
 
 - [React 17](https://reactjs.org)
 - [Webpack 5](https://webpack.js.org/)
