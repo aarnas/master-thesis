@@ -46,7 +46,7 @@ async function predictSite(url, ip, domain, protocol, geo) {
     const countEmbededDomain = await embededDomainCount(url);
     const shortUrl = await isShortUrl(domain);
     const countHttp = await httpCount(url);
-    const input = [urlLength, whois, isHttps, abnormalUrl, countDot, countWWW, countEta, countDir, countEmbededDomain, shortUrl, countHttp, continent.includes('Africa') ? 1 : 0, continent.includes('Asia') ? 1 : 0, continent.includes('Europe') ? 1 : 0, continent.includes('North America') ? 1 : 0, continent.includes('South America') ? 1 : 0, continent.includes('Oceania') ? 1 : 0];
+    const input = [Number(geoId), Number(tld), urlLength, whois, isHttps, abnormalUrl, countDot, countWWW, countEta, countDir, countEmbededDomain, shortUrl, countHttp, continent.includes('Africa') ? 1 : 0, continent.includes('Asia') ? 1 : 0, continent.includes('Europe') ? 1 : 0, continent.includes('North America') ? 1 : 0, continent.includes('South America') ? 1 : 0, continent.includes('Oceania') ? 1 : 0];
     const probability = predict(input);
     const endTime = new Date().getTime();
     const secondsTaken = ((endTime - startTime) * 0.001).toFixed(2);
