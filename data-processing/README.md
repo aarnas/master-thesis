@@ -1,4 +1,8 @@
 # Usage
+`Setup`
+```bash
+npm i
+```
 
 `cd 1_json_CSV_Convert`
 
