@@ -1,5 +1,5 @@
 import { toPercent } from './modules/utils';
-import { getGeo, getUrlLength, getWhoIs, getUrlsFromHTML, getGeoLocally, isAbnormal, dotCount, wwwCount, etaCount, dirCount, embededDomainCount, isShortUrl, httpCount } from './modules/getters';
+import { getGeo, getUrlLength, getWhoIs, getUrlsFromHTML, getNotLocallyIP, getGeoLocally, isAbnormal, dotCount, wwwCount, etaCount, dirCount, embededDomainCount, isShortUrl, httpCount } from './modules/getters';
 import { saveHTMLToLocalStorage, savePredictionToLocalStorage } from './modules/saveToLocalStorage';
 import { predict } from './modules/ai';
 
@@ -63,11 +63,18 @@ async function predictUrls(urls) {
         const regex = /((?!(w+)\.)\w*(?:\w+\.)+\w+)/g;
         const siteDomain = url.match(regex)[0];
         const siteProtocol = url.includes('https') ? "https:" : "http:";
-        const geo = await getGeoLocally(siteDomain);
-        console.log(siteDomain, siteProtocol, geo);
-        const siteProbability = await predictSite(url, ip, siteDomain, siteProtocol, geo);
-        if (siteProbability > 0.5) {
-            sitesProbabilities.push(siteProbability);
+        const ip = await getNotLocallyIP(url);
+        if (ip) {
+            // Not that accurate but faster 
+            const geo = await getGeoLocally(url);
+            console.log(siteDomain, siteProtocol, geo);
+            const siteProbability = await predictSite(url, ip, siteDomain, siteProtocol);
+            chrome.tabs.executeScript({
+                code: "console.log('Input: " + siteDomain + "'); console.log('Probability of insecure: " + siteProbability + ");"
+            });
+            if (siteProbability > 0.5) {
+                sitesProbabilities.push(siteProbability);
+            }
         }
     });
     if (sitesProbabilities.length > 0) {
@@ -107,8 +114,10 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
         const html = message.html;
         // const htmlUrls = await getUrlsFromHTML(html);
         // const uniqueUrls = [...new Set(htmlUrls)];
-        // console.log(uniqueUrls);
+        // chrome.tabs.executeScript({
+        //     code: "console.log('Urls in page: " + uniqueUrls + ");"
+        // });
         saveHTMLToLocalStorage(url, html);
-        // predictUrls(uniqueUrls);
+        //predictUrls(uniqueUrls);
     }
 });

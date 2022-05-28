@@ -2,6 +2,19 @@ import axios from 'axios';
 import { getIdFromCountry, getIdFromTLD, getTLDFromUrl, getCountryFromTLD } from './utils';
 const GEO_API_KEY = localStorage.getItem('geoApiKey');
 
+export const getNotLocallyIP = async (url) => {
+    const request = axios.get(`https://talosintelligence.com/cloud_intel/domain_info?domain_name=` + url);
+    return request
+        .then(async (result) => {
+            console.log(result.data);
+            if (result.data.error.includes('Could not find domain')) {
+                return null;
+            }
+            return result.data.related_ips[0].address;
+        })
+        .catch(error => { return Promise.reject(error); });
+};
+
 export const getGeo = async (ip) => {
     const request = axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${GEO_API_KEY}&ip=` + ip + '&fields=country_name,country_tld,continent_name');
     return request
