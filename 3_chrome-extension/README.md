@@ -13,5 +13,6 @@
    2. Check `Developer mode`
    3. Click on `Load unpacked extension`
    4. Select the `build` folder.
-8. Open `Extension Options` and add your API key for https://ipgeolocation.io/ requests.
-9. Happy checks!
+8. Open `Extension Options` and add your API key for https://ipgeolocation.io/ requests and upload model.
+9. Refresh extension.
+10. Happy checks!
